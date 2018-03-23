@@ -1,0 +1,25 @@
+{
+  "name": "logproc",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "concurrently": "^3.5.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1",
+    "wait-on": "^2.1.0"
+  },
+  "main": "src/electron-starter.js",
+  "scripts": {
+    "react-start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000/ && npm run electron\""
+  },
+  "devDependencies": {
+    "electron": "^1.8.4",
+    "foreman": "^2.0.0"
+  }
+}
