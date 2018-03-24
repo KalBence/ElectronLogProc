@@ -1,4 +1,7 @@
+//import { DEFAULT_ENCODING } from 'crypto';
+
 const electron = require('electron');
+const {Menu, shell, dialog, ipcMain} = require('electron');
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -7,13 +10,92 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
+var fs = require('fs');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
+const template = [
+    {
+      label: 'File',
+      submenu: [{
+          label: 'Open',
+          click: function (item, focusedWindow) {
+
+            dialog.showOpenDialog((fileNames) => {
+                // fileNames is an array that contains all the selected
+                if(fileNames === undefined){
+                    console.log("No file selected");
+                    return;
+                }
+            
+                fs.readFile(fileNames[0], 'utf-8', (err, dataIn) => {
+                    if(err){
+                        alert("An error ocurred reading the file :" + err.message);
+                        return;
+                    }
+            
+                    // Change how to handle the file content
+                    console.log("The file content is : " + dataIn);
+                });
+            });  
+
+          }
+        }]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        {role: 'undo'},
+        {role: 'redo'},
+        {type: 'separator'},
+        {role: 'cut'},
+        {role: 'copy'},
+        {role: 'paste'},
+        {role: 'pasteandmatchstyle'},
+        {role: 'delete'},
+        {role: 'selectall'}
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {role: 'reload'},
+        {role: 'forcereload'},
+        {role: 'toggledevtools'},
+        {type: 'separator'},
+        {role: 'resetzoom'},
+        {role: 'zoomin'},
+        {role: 'zoomout'},
+        {type: 'separator'},
+        {role: 'togglefullscreen'}
+      ]
+    },
+    {
+      role: 'window',
+      submenu: [
+        {role: 'minimize'},
+        {role: 'close'}
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'Learn More',
+          click () { require('electron').shell.openExternal('https://electronjs.org') }
+        }
+      ]
+    }
+  ]
+
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 800, height: 600});
+
+    menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
 
     // and load the index.html of the app.
     mainWindow.loadURL('http://localhost:3000');
