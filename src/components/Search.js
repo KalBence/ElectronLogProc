@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { fetchLines } from "../actions/logActions";
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/logActions';
+
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
 const dialog = electron.remote.dialog;
 
-export default class Search extends React.Component {
+function mapStateToProps(state) {
+    return { lines: state.lines.lines };
+}
+  
+/*function mapDispatchToProps(dispatch) {
+    return { actions: bindActionCreators(actionCreators, dispatch) };
+}*/
+
+class Search extends React.Component {
     render () {
         return (
             <div>
                 <h1>Search Field</h1>
                 <button
-                    onClick={this.openFile}
+                    onClick={this.openFile.bind(this)}
                     color="#841584"
                 >Open file</button>
             </div>
@@ -17,7 +30,8 @@ export default class Search extends React.Component {
     }
 
     openFile() {
-
+        
+        var data;
         dialog.showOpenDialog((fileNames) => {
             // fileNames is an array that contains all the selected
             if(fileNames === undefined){
@@ -30,11 +44,15 @@ export default class Search extends React.Component {
                     alert("An error ocurred reading the file :" + err.message);
                     return;
                 }
-        
-                // Change how to handle the file content
-                console.log("The file content is : " + dataIn);
+
+                console.log(dataIn.split('\n'));
+
+                this.props.dispatch(fetchLines(dataIn.split('\n')));
             });
+            
         }); 
         
     }
 }
+
+export default connect(mapStateToProps/*, mapDispatchToProps*/)(Search);
