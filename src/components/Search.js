@@ -1,58 +1,74 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchLines } from "../actions/logActions";
+import { filterLines } from "../actions/logActions";
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/logActions';
-
-const electron = window.require('electron');
-const fs = electron.remote.require('fs');
-const dialog = electron.remote.dialog;
-
-function mapStateToProps(state) {
-    return { lines: state.lines.lines };
-}
-  
-/*function mapDispatchToProps(dispatch) {
-    return { actions: bindActionCreators(actionCreators, dispatch) };
-}*/
+import Open from "./Open";
 
 class Search extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            time: "",
+            level: "",
+            message: ""
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+    
+        this.setState({
+          [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        var filter = {
+            time: this.state.time,
+            level: this.state.level,
+            message: this.state.message
+        }
+        console.log('was submitted: ' + filter.level);
+        this.props.dispatch(filterLines(filter));
+        event.preventDefault();
+    }
+
     render () {
         return (
             <div>
                 <h1>Search Field</h1>
-                <button
-                    onClick={this.openFile.bind(this)}
-                    color="#841584"
-                >Open file</button>
+                <Open/>
+                <br/>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Time:
+                        <input type="text" name="time" onChange={this.handleInputChange}/>
+                    </label>
+                    <label>
+                        Level:
+                        <select name="level" onChange={this.handleInputChange}>
+                            <option value="">ANY</option>
+                            <option value="dbg">Debug</option>
+                            <option value="inf">Information</option>
+                            <option value="err">Error</option>
+                            <option value="war">Warning</option>
+                        </select>
+                    </label>
+                    <label>
+                        Message:
+                        <input type="text" name="message" onChange={this.handleInputChange}/>
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
             </div>
         );
     }
-
-    openFile() {
-        
-        var data;
-        dialog.showOpenDialog((fileNames) => {
-            // fileNames is an array that contains all the selected
-            if(fileNames === undefined){
-                console.log("No file selected");
-                return;
-            }
-        
-            fs.readFile(fileNames[0], 'utf-8', (err, dataIn) => {
-                if(err){
-                    alert("An error ocurred reading the file :" + err.message);
-                    return;
-                }
-
-                console.log(dataIn.split('\n'));
-
-                this.props.dispatch(fetchLines(dataIn.split('\n')));
-            });
-            
-        }); 
-        
-    }
 }
 
-export default connect(mapStateToProps/*, mapDispatchToProps*/)(Search);
+export default connect()(Search);

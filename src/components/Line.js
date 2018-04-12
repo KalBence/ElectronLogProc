@@ -6,7 +6,7 @@ export default class Line extends React.Component {
 
         return (
             <p>
-                {lineData} 
+                {lineData.time} {lineData.pid} {lineData.level} - {lineData.message}
             </p>
         );
     }
