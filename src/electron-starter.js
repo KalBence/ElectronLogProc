@@ -92,7 +92,7 @@ const template = [
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 1024, height: 768});
+    mainWindow = new BrowserWindow({width: 1400, height: 900});
 
     menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);

@@ -33,29 +33,19 @@ class Open extends React.Component {
                 console.log("No file selected");
                 return;
             }
-        
+            
+            //nagybb olvasás melyik szálon / node-ba és vissz adom
+            //olvasás közben is respnsive
+            //regex
+            //virtual table
+            //redux selector
             fs.readFile(fileNames[0], 'utf-8', (err, dataIn) => {
                 if(err){
                     alert("An error ocurred reading the file :" + err.message);
                     return;
                 }
 
-                //console.log(dataIn.split('\n'));
-                var linesArray = dataIn.split('\n');
-                var lineObjects = [];
-                for (var l in linesArray)
-                {
-                    var line = {};
-                    var words = linesArray[l].split(' ');
-                    line.time = words[0];
-                    line.pid = words[1];
-                    line.level = words[2];
-                    line.message = words.slice((-1*words.length) + 3).join(" ");
-                    lineObjects.push(line);
-                };
-                console.log(lineObjects);
-
-                this.props.dispatch(fetchLines(lineObjects));
+                this.props.dispatch(fetchLines(dataIn));
             });
             
         }); 

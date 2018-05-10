@@ -9,7 +9,9 @@
     "react-native": "^0.54.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.1",
+    "react-virtualized": "^9.18.5",
     "redux": "^3.7.2",
+    "reselect": "^3.0.1",
     "wait-on": "^2.1.0"
   },
   "main": "src/electron-starter.js",

@@ -34,7 +34,7 @@ class Search extends React.Component {
             level: this.state.level,
             message: this.state.message
         }
-        console.log('was submitted: ' + filter.level);
+        //console.log('was submitted: ' + filter.time);
         this.props.dispatch(filterLines(filter));
         event.preventDefault();
     }
@@ -47,11 +47,11 @@ class Search extends React.Component {
                 <br/>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Time:
-                        <input type="text" name="time" onChange={this.handleInputChange}/>
+                        Time (from)
+                        <input type="datetime-local" step="1" name="time" onChange={this.handleInputChange}/>
                     </label>
                     <label>
-                        Level:
+                        Level
                         <select name="level" onChange={this.handleInputChange}>
                             <option value="">ANY</option>
                             <option value="dbg">Debug</option>
@@ -61,10 +61,10 @@ class Search extends React.Component {
                         </select>
                     </label>
                     <label>
-                        Message:
+                        Message
                         <input type="text" name="message" onChange={this.handleInputChange}/>
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Filter" />
                 </form>
             </div>
         );
