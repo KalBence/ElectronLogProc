@@ -59,11 +59,6 @@ class Log extends React.Component {
                         cellRenderer={dateCellRenderer}
                     />
                     <Column
-                        width={150}
-                        label='pID'
-                        dataKey='pid'
-                    />
-                    <Column
                         width={60}
                         label='Level'
                         dataKey='level'

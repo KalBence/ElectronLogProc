@@ -1,7 +1,7 @@
-export function fetchLines(logLines) {
+export function fetchLines(logLines, regex) {
   return {
     type: "FETCH_LINES",
-    payload: logLines
+    payload: { logLines, regex }
   }
 }
 

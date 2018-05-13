@@ -1,0 +1,40 @@
+<h3>New Regex</h3>
+<label>Name:</label>
+<input id="name" type="text" style='width:100%'><br>
+<label>Regex:</label>
+<input id="regex" type="text" style='width:100%'><br>
+<label>number of date/time:</label>
+<input id="date" type="number"><br>
+<label>number of severity:</label>
+<input id="level" type="number"><br>
+<label>number of message:</label>
+<input id="msg" type="number"><br>
+
+<button id="btn">Add</button>
+
+<script>
+    const {ipcRenderer ,remote} = require('electron')
+
+    const btn = document.getElementById('btn');
+    
+    btn.addEventListener('click', () => {
+        name = document.getElementById("name").value;
+        regex = document.getElementById("regex").value;
+        date = document.getElementById("date").value;
+        level = document.getElementById("level").value;
+        msg = document.getElementById("msg").value;
+
+        var newRegex = {
+            name : name,
+            rgx : regex,
+            levelN : level,
+            dateN : date,
+            msgN : msg
+        }
+
+        ipcRenderer.send('new-regex', newRegex);
+        var window = remote.getCurrentWindow();
+        window.close();
+    })
+
+</script>

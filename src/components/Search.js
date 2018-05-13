@@ -4,6 +4,7 @@ import { filterLines } from "../actions/logActions";
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/logActions';
 import Open from "./Open";
+import Regex from "./Regex"
 
 class Search extends React.Component {
     constructor(props) {
@@ -42,7 +43,8 @@ class Search extends React.Component {
     render () {
         return (
             <div>
-                <h1>Search Field</h1>
+                Search Field
+                <Regex/>
                 <Open/>
                 <br/>
                 <form onSubmit={this.handleSubmit}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { fetchLines } from "../actions/logActions";
+import { getSelected } from "../actions/regexActions";
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/logActions';
 
@@ -9,7 +10,7 @@ const fs = electron.remote.require('fs');
 const dialog = electron.remote.dialog;
 
 function mapStateToProps(state) {
-    return { lines: state.lines.lines };
+    return { lines: state.lines.lines, selectedRegex: state.regex.selectedRegex };
 }
 
 class Open extends React.Component {
@@ -25,6 +26,9 @@ class Open extends React.Component {
     }
 
     openFile() {
+
+        this.props.dispatch(getSelected());
+        //console.log(this.props.selectedRegex);
         
         var data;
         dialog.showOpenDialog((fileNames) => {
@@ -45,7 +49,7 @@ class Open extends React.Component {
                     return;
                 }
 
-                this.props.dispatch(fetchLines(dataIn));
+                this.props.dispatch(fetchLines(dataIn,this.props.selectedRegex));
             });
             
         }); 
