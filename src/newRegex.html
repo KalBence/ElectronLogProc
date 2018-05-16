@@ -1,17 +1,30 @@
-<h3>New Regex</h3>
-<label>Name:</label>
-<input id="name" type="text" style='width:100%'><br>
-<label>Regex:</label>
-<input id="regex" type="text" style='width:100%'><br>
-<label>number of date/time:</label>
-<input id="date" type="number"><br>
-<label>number of severity:</label>
-<input id="level" type="number"><br>
-<label>number of message:</label>
-<input id="msg" type="number"><br>
+<link rel="stylesheet" href="App.css">
 
-<button id="btn">Add</button>
-
+<div class="form-style-5" >
+    <h3>New Regex</h3>
+    <label>Name:</label>
+    <input id="name" type="text" style='width:100%'><br>
+    <label>Regex:</label>
+    example : (\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d*\+\d{2}:\d{2} .{0,13} (\[INF\]|\[DBG\]|\[WRN\]) (.*)
+    <input id="regex" type="text" style='width:100%'><br>
+    <table class="table">
+        <tr>
+            <td>
+                <label>number of date/time:</label>
+                <input id="date" type="number"><br>
+            </td>
+            <td>
+                <label>number of severity:</label>
+                <input id="level" type="number"><br>
+            </td>   
+            <td>
+                <label>number of message:</label>
+                <input id="msg" type="number"><br>
+            </td>
+        </tr>
+    </table>
+    <input id="btn" type="submit" value="Create" class="create-btn">
+</div>
 <script>
     const {ipcRenderer ,remote} = require('electron')
 

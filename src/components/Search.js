@@ -43,31 +43,35 @@ class Search extends React.Component {
     render () {
         return (
             <div>
-                Search Field
-                <Regex/>
-                <Open/>
+                <div>
+                    <Regex/>
+                    <Open/>
+                </div>
                 <br/>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Time (from)
-                        <input type="datetime-local" step="1" name="time" onChange={this.handleInputChange}/>
-                    </label>
-                    <label>
-                        Level
-                        <select name="level" onChange={this.handleInputChange}>
-                            <option value="">ANY</option>
-                            <option value="dbg">Debug</option>
-                            <option value="inf">Information</option>
-                            <option value="err">Error</option>
-                            <option value="war">Warning</option>
-                        </select>
-                    </label>
-                    <label>
-                        Message
-                        <input type="text" name="message" onChange={this.handleInputChange}/>
-                    </label>
-                    <input type="submit" value="Filter" />
-                </form>
+                
+                <div class="form-style-5" >
+                    <form onSubmit={this.handleSubmit}>
+                        <label class="left-date">
+                            Time (from)
+                            <input type="datetime-local" step="1" name="time" onChange={this.handleInputChange}/>
+                        </label>
+                        <label class="right-level">
+                            Level
+                            <select name="level" onChange={this.handleInputChange}>
+                                <option value="">ANY</option>
+                                <option value="dbg">Debug</option>
+                                <option value="inf">Information</option>
+                                <option value="err">Error</option>
+                                <option value="war">Warning</option>
+                            </select>
+                        </label>
+                        <label class="left-msg">
+                            Message
+                            <input type="text" name="message" onChange={this.handleInputChange}/>
+                        </label>
+                        <input class="btn-filter" type="submit" value="Filter" />
+                    </form>
+                </div>
             </div>
         );
     }

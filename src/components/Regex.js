@@ -8,6 +8,7 @@ const electron = window.require('electron');
 const ipcRenderer  = electron.ipcRenderer;
 
 
+
 class Regex extends React.Component {
 
     constructor(props) {
@@ -52,9 +53,9 @@ class Regex extends React.Component {
     render () {
 
         return (
-            <div>
+            <div class="form-style-5 left">
                 <select onChange={this.onDropdownSelected} >
-                    <option value="" selected disabled hidden>Choose here</option>
+                    <option value="" selected disabled hidden>Choose parsing regex here!</option>
                     {this.createSelectItems()}
                 </select>
             </div>

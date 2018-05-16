@@ -16,11 +16,12 @@ function mapStateToProps(state) {
 class Open extends React.Component {
     render () {
         return (
-            <div>
-                <button
+            <div class="form-style-5"> 
+                <input type="button"
                     onClick={this.openFile.bind(this)}
                     color="#841584"
-                >Open file</button>
+                    value="Open file"
+                />
             </div>
         );
     }

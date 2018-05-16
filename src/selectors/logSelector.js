@@ -26,7 +26,6 @@ const getFilteredLines = createSelector(
         });
 
         var filteredLines2 = filteredLines1.filter(function (el) {
-            console.log(time + " log time: " + el.time);
             if (el.time < time)
                 return false;
             else 

@@ -1,3 +1,13 @@
+const electron = window.require('electron');
+const fs = electron.remote.require('fs');
+const dialog = electron.remote.dialog;
+const app = electron.app;
+// Module to create native browser window.
+const BrowserWindow = electron.BrowserWindow;
+//const {Menu, shell, ipcMain} = require('electron');
+const path = require('path');
+const url = require('url');
+
 export default function reducer(state={
     lines: [{message : ""}],
     ogLines: [],
@@ -7,6 +17,18 @@ export default function reducer(state={
     switch (action.type) {
         case "FETCH_LINES":
         {
+            /*
+            var loader = new BrowserWindow({width: 500, height: 300})
+            loader.loadURL(url.format({
+              pathname: path.join(__dirname, 'newRegex.html'),
+              protocol: 'file:',
+              slashes: true
+            }))
+    
+            loader.on('closed', function () {
+                loader = null
+            })*/
+
             var regex = action.payload.regex;
             console.log(regex);
 
@@ -14,14 +36,28 @@ export default function reducer(state={
             //var dateRgx = new RegExp(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{7})/);
             //var dateRgx = new RegExp(/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/);
 
+            var lineObjects = [];
             //console.log(dataIn.split('\n'));
             var linesArray = action.payload.logLines.split('\n');
-            var lineObjects = [];
+         
             for (var l in linesArray)
             {
                 var line = {};
                 //var words = linesArray[l].split(' ');
                 var t = linesArray[l].match(regex.rgx);
+                if (t == null) {
+                    var invalid = {
+                        time : null,
+                        level : "",
+                        message : "invalid regex"
+                    }
+                    lineObjects.push(invalid);
+                    return {
+                        ...state,
+                        lines: lineObjects,
+                        ogLines: lineObjects
+                    }
+                }
                 //line.time = new Date(t[1], t[2], t[3], t[4], t[5], t[6]);
                 line.time = new Date(t[regex.dateN]);
                 line.level = t[regex.levelN];

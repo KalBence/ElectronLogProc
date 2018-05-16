@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "concurrently": "^3.5.1",
+    "material-ui": "^0.20.1",
+    "materialize-css": "^1.0.0-rc.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-native": "^0.54.2",

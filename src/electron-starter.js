@@ -95,7 +95,7 @@ const template = [
           click: function (item, focusedWindow) {
             if (focusedWindow) {
       
-              addWindow = new BrowserWindow({width: 500, height: 300})
+              addWindow = new BrowserWindow({width: 800, height: 400})
               addWindow.loadURL(url.format({
                 pathname: path.join(__dirname, 'newRegex.html'),
                 protocol: 'file:',
